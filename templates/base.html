@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Arcade{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">Arcade 🎮</a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'hub' %}">Hub</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'chat' %}">Chat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">Registration</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- Музикален плеър -->
+  <div id="music-player" class="bg-secondary p-2 rounded fixed-bottom w-100">
+    <audio id="audioPlayer" controls>
+      <source src="{% static 'music/track1.mp3' %}" type="audio/mp3">
+    </audio>
+    <button class="btn btn-sm btn-dark" onclick="togglePlayer()">⬇️</button>
+  </div>
+
+  <script>
+    function togglePlayer() {
+      const player = document.getElementById('music-player');
+      player.style.display = player.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>

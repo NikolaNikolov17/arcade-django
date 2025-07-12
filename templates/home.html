@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Начало{% endblock %}
+
+{% block content %}
+  <div class="text-center">
+    <h1>Добре дошъл в Arcade 🎮</h1>
+    <p>Играйте, слушайте музика и чатете с приятели.</p>
+    {% if not user.is_authenticated %}
+      <a href="{% url 'register' %}" class="btn btn-success">Регистрирай се</a>
+    {% endif %}
+  </div>
+{% endblock %}

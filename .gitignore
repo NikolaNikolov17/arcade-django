@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+
+# IDEs
+.idea/
+.vscode/
+
+# Static & media (ако качваш динамично)
+staticfiles/
+media/
+
+# Django migrations
+**/migrations/
+!*/migrations/__init__.py
+
+# OS files
+.DS_Store
+Thumbs.db
