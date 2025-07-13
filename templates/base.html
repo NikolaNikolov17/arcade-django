@@ -14,16 +14,13 @@
         <ul class="navbar-nav ms-auto">
           {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'hub' %}">Hub</a>
+              <a class="nav-link" href="">Games</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'profile' %}">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'chat' %}">Chat</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              <a class="nav-link" href="">Logout</a>
             </li>
           {% else %}
             <li class="nav-item">
@@ -42,13 +39,15 @@
     {% block content %}{% endblock %}
   </div>
 
-  <!-- Музикален плеър -->
-  <div id="music-player" class="bg-secondary p-2 rounded fixed-bottom w-100">
-    <audio id="audioPlayer" controls>
-      <source src="{% static 'music/track1.mp3' %}" type="audio/mp3">
-    </audio>
-    <button class="btn btn-sm btn-dark" onclick="togglePlayer()">⬇️</button>
-  </div>
+
+  {% if user.is_authenticated and not request.path|slice:":20" == "/profile/login/" and not request.path|slice:":23" == "/profile/register/" %}
+    <div id="music-player" class="bg-secondary p-2 rounded fixed-bottom w-100">
+      <audio id="audioPlayer" controls>
+        <source src="" type="audio/mp3">
+      </audio>
+      <button class="btn btn-sm btn-dark" onclick="togglePlayer()">Hide</button>
+    </div>
+  {% endif %}
 
   <script>
     function togglePlayer() {
