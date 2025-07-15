@@ -12,12 +12,26 @@
 
     <div class="col-md-6 d-flex flex-column justify-content-between">
       <div class="mb-4">
-        <h4>🏆 Top Scores</h4>
-        <ul class="list-group">
-          <li class="list-group-item bg-dark text-white">Player1 - 1200</li>
-          <li class="list-group-item bg-dark text-white">Player2 - 950</li>
-          <li class="list-group-item bg-dark text-white">Player3 - 870</li>
-        </ul>
+        <h4>🏆 Leaderboard</h4>
+        <div id="leaderboard-container">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <button onclick="switchGame(-1)" class="btn btn-sm btn-secondary">←</button>
+            <strong id="current-game-name"></strong>
+            <button onclick="switchGame(1)" class="btn btn-sm btn-secondary">→</button>
+          </div>
+          <table class="table table-dark table-sm">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div>
@@ -38,4 +52,41 @@
     </div>
   </div>
 </div>
+
+<script>
+  const leaderboardData = {{ leaderboard|safe }};
+  const gameNames = Object.keys(leaderboardData);
+  let currentGameIndex = 0;
+
+  function renderLeaderboard() {
+    const game = gameNames[currentGameIndex];
+    document.getElementById("current-game-name").innerText = game;
+
+    const tbody = document.getElementById("leaderboard-body");
+    tbody.innerHTML = "";
+
+    const scores = leaderboardData[game];
+    if (!scores || scores.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="3" class="text-center">No scores yet</td></tr>`;
+    } else {
+      scores.forEach((entry, i) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${i + 1}</td>
+          <td>${entry.user__username}</td>
+          <td>${entry.max_score}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+  }
+
+  function switchGame(direction) {
+    currentGameIndex = (currentGameIndex + direction + gameNames.length) % gameNames.length;
+    renderLeaderboard();
+  }
+
+  renderLeaderboard();
+</script>
+
 {% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center mt-5">
+  <h2>Select a Game</h2>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-4 mb-3">
+      <div class="card bg-secondary text-white">
+        <div class="card-body">
+          <h5 class="card-title">Space Defenders</h5>
+          <p class="card-text">Shoot enemies and survive!</p>
+          <a href="{% url 'space_invaders' %}" class="btn btn-light">Play</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card bg-secondary text-white">
+        <div class="card-body">
+          <h5 class="card-title">Pac-Man</h5>
+          <p class="card-text">Eat dots and run from ghosts!</p>
+          <a href="{% url 'pac_man' %}" class="btn btn-light">Play</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
