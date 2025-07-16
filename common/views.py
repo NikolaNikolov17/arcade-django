@@ -1,9 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Max
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import RedirectView, TemplateView
 
+from chat.forms import ChatMessageForm
+from chat.models import ChatMessage
 from games.models import Game, GameScore
 
 
@@ -23,10 +25,9 @@ class HomeView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-
+        # 🎮 Leaderboard
         games = Game.objects.all()
         leaderboard = {}
-
         for game in games:
             top_scores = (
                 GameScore.objects
@@ -36,7 +37,20 @@ class HomeView(LoginRequiredMixin, TemplateView):
                 .order_by('-max_score')[:10]
             )
             leaderboard[game.name] = list(top_scores)
-
         context['leaderboard'] = leaderboard
+
+        # 💬 Chat messages
+        context['chat_form'] = ChatMessageForm()
+        context['chat_messages'] = ChatMessage.objects.order_by('-timestamp')[:50][::-1]
+
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = ChatMessageForm(request.POST)
+        if form.is_valid():
+            ChatMessage.objects.create(
+                sender=request.user,
+                message=form.cleaned_data['message']
+            )
+        return redirect('home')
 
