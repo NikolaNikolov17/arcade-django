@@ -20,8 +20,11 @@
               <a class="nav-link" href="{% url 'profile' %}">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">Logout</a>
+              <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
             </li>
+            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+              {% csrf_token %}
+            </form>
           {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -40,20 +43,6 @@
   </div>
 
 
-  {% if user.is_authenticated and not request.path|slice:":20" == "/profile/login/" and not request.path|slice:":23" == "/profile/register/" %}
-    <div id="music-player" class="bg-secondary p-2 rounded fixed-bottom w-100">
-      <audio id="audioPlayer" controls>
-        <source src="" type="audio/mp3">
-      </audio>
-      <button class="btn btn-sm btn-dark" onclick="togglePlayer()">Hide</button>
-    </div>
-  {% endif %}
 
-  <script>
-    function togglePlayer() {
-      const player = document.getElementById('music-player');
-      player.style.display = player.style.display === 'none' ? 'block' : 'none';
-    }
-  </script>
 </body>
 </html>
