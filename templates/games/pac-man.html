@@ -1,21 +1,39 @@
 {% load static %}
 
 <style>
-  body {
-    margin: 0;
-    background-color: black;
-    padding: 10px 20px;
-    color: white;
-    font-family: sans-serif;
-  }
+    body {
+        margin: 0;
+        background-color: black;
+        padding: 10px 20px;
+        color: white;
+        font-family: sans-serif;
+    }
 
-  .back-link {
-    display: inline-block;
-    margin-bottom: 10px;
-    color: white;
-    text-decoration: underline;
-    font-size: 14px;
-  }
+    .back-link {
+        display: inline-block;
+        margin-bottom: 10px;
+        color: white;
+        text-decoration: underline;
+        font-size: 14px;
+    }
+
+
+    #endScreen {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      text-align: center;
+      z-index: 999;
+    }
+
+
 </style>
 
 <a href="{% url 'games_hub' %}" class="back-link">← Back to Games</a>
@@ -24,11 +42,13 @@
   <span>Score: </span><span id="scoreEl">0</span>
 </p>
 
+
 <canvas></canvas>
 
-<div id="endScreen" style="display: none; text-align: center; position: absolute; top: 20%; left: 50%; transform: translateX(-50%); color: white; background: rgba(0,0,0,0.85); padding: 20px; border-radius: 10px;">
-  <h2 id="endMessage"></h2>
-  <p>Score: <span id="finalScore"></span></p>
+
+<div id="endScreen">
+  <h2 id="endMessage">You Lose</h2>
+  <p>Score: <span id="finalScore">0</span></p>
   <button onclick="restartGame()" class="btn btn-success">Play Again</button>
   <a href="{% url 'games_hub' %}" class="btn btn-secondary">Back to Games</a>
 </div>

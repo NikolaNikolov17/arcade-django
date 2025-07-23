@@ -67,6 +67,11 @@ class HomeView(LoginRequiredMixin, TemplateView):
                     message=form.cleaned_data['message']
                 )
 
+        # Clear song history
+        if 'clear_history' in request.POST:
+            Song.objects.filter(added_by=request.user).delete()
+            return redirect('home')
+
         # Music
         elif 'youtube_url' in request.POST:
             form = SongForm(request.POST)

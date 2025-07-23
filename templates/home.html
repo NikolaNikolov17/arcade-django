@@ -65,7 +65,14 @@
           </div>
       {% endif %}
     </div>
-    <h5 class="mt-4">Your Song History</h5>
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-2">
+        <h5 class="mb-0">Your Song History</h5>
+        <form method="post" style="margin: 0;">
+            {% csrf_token %}
+            <input type="hidden" name="clear_history" value="1">
+            <button type="submit" class="btn btn-sm btn-secondary">Clear</button>
+        </form>
+    </div>
     <ul class="list-group">
       {% for song in song_history %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
