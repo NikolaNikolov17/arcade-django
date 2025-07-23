@@ -5,48 +5,48 @@
   <h2>Register</h2>
 
   {% if form.non_field_errors %}
-    <div class="alert alert-danger">
-      <ul>
-        {% for error in form.non_field_errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    </div>
+      <div class="alert alert-danger">
+          <ul>
+              {% for error in form.non_field_errors %}
+                  <li>{{ error }}</li>
+              {% endfor %}
+          </ul>
+      </div>
   {% endif %}
 
   <form method="post">
-    {% csrf_token %}
-    <div class="mb-3">
-      {{ form.username.label_tag }} {{ form.username }}
-      {% for error in form.username.errors %}
-        <div class="text-danger">{{ error }}</div>
-      {% endfor %}
-    </div>
-    <div class="mb-3">
-      {{ form.email.label_tag }} {{ form.email }}
-      {% for error in form.email.errors %}
-        <div class="text-danger">{{ error }}</div>
-      {% endfor %}
-    </div>
-    <div class="mb-3">
-      {{ form.profile_pic.label_tag }} {{ form.profile_pic }}
-      {% for error in form.profile_pic.errors %}
-        <div class="text-danger">{{ error }}</div>
-      {% endfor %}
-    </div>
-    <div class="mb-3">
-      {{ form.password1.label_tag }} {{ form.password1 }}
-      {% for error in form.password1.errors %}
-        <div class="text-danger">{{ error }}</div>
-      {% endfor %}
-    </div>
-    <div class="mb-3">
-      {{ form.password2.label_tag }} {{ form.password2 }}
-      {% for error in form.password2.errors %}
-        <div class="text-danger">{{ error }}</div>
-      {% endfor %}
-    </div>
-    <button type="submit" class="btn btn-success">Register</button>
+      {% csrf_token %}
+      <div class="mb-3">
+          {{ form.username.label_tag }} {{ form.username }}
+          {% for error in form.username.errors %}
+              <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+      </div>
+      <div class="mb-3">
+          {{ form.email.label_tag }} {{ form.email }}
+          {% for error in form.email.errors %}
+              <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+      </div>
+      <div class="mb-3">
+          {{ form.profile_pic.label_tag }} {{ form.profile_pic }}
+          {% for error in form.profile_pic.errors %}
+              <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+      </div>
+      <div class="mb-3">
+          {{ form.password1.label_tag }} {{ form.password1 }}
+          {% for error in form.password1.errors %}
+              <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+      </div>
+      <div class="mb-3">
+          {{ form.password2.label_tag }} {{ form.password2 }}
+          {% for error in form.password2.errors %}
+              <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+      </div>
+      <button type="submit" class="btn btn-success">Register</button>
   </form>
 </div>
 {% endblock %}

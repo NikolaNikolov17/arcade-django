@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'games',
     'chat',
     'music',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

@@ -5,8 +5,8 @@
 <p>This action can not be reversed.</p>
 
 <form method="post">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-danger">Yes</button>
-  <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes</button>
+    <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
 </form>
 {% endblock %}

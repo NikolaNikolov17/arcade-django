@@ -4,15 +4,15 @@
   <div class="container mt-5 w-50">
     <h2>Login</h2>
     <form method="post" novalidate>
-      {% csrf_token %}
-      {{ form.non_field_errors }}
-      <div class="mb-3">
-        {{ form.username.label_tag }} {{ form.username }}
-      </div>
-      <div class="mb-3">
-        {{ form.password.label_tag }} {{ form.password }}
-      </div>
-      <button type="submit" class="btn btn-primary">Login</button>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="mb-3">
+            {{ form.username.label_tag }} {{ form.username }}
+        </div>
+        <div class="mb-3">
+            {{ form.password.label_tag }} {{ form.password }}
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
   </div>
 {% endblock %}

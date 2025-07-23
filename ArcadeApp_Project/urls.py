@@ -22,4 +22,9 @@ urlpatterns = [
     path('games/', include('games.urls')),
     path('', include('common.urls')),
     path('profile/', include('users.urls')),
+    path('api/', include('games.api.urls')),
+    path('api/', include([
+        path('games/', include('games.api.urls')),
+        path('music/', include('music.api.urls')),
+    ])),
 ]
