@@ -1,40 +1,22 @@
 {% load static %}
 
-<style>
-  body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: purple;
-    font-family: sans-serif;
-    color: white;
-  }
-
-  .back-link {
-    margin: 10px;
-    color: white;
-    text-decoration: underline;
-    font-size: 14px;
-    align-self: flex-start;
-  }
-</style>
+<link rel="stylesheet" href="{% static 'games/space-invaders/space-invaders.css' %}">
 
 <a href="{% url 'games_hub' %}" class="back-link">← Back to Games</a>
 
 <div style="position: relative;">
-  <p style="position: absolute; z-index: 10; color: white; left: 10px; top: 10px;
-    margin: 0; font-size: 14px;">
-    <span>Score:</span> <span id="scoreEl">0</span>
-  </p>
-  <canvas></canvas>
+    <p class="score-label">
+        <span>Score:</span> <span id="scoreEl">0</span>
+    </p>
 
-<div id="endScreen" style="display: none; text-align: center; position: absolute; top: 20%; left: 50%; transform: translateX(-50%); color: white; background: rgba(0,0,0,0.85); padding: 20px; border-radius: 10px;">
-  <h2 id="endMessage"></h2>
-  <p>Score: <span id="finalScore"></span></p>
-  <button onclick="restartGame()" class="btn btn-success">Play Again</button>
-  <a href="{% url 'games_hub' %}" class="btn btn-secondary">Back to Games</a>
+    <canvas></canvas>
+
+    <div id="endScreen">
+        <h2 id="endMessage"></h2>
+        <p>Score: <span id="finalScore"></span></p>
+        <button onclick="restartGame()" class="btn btn-success">Play Again</button>
+        <a href="{% url 'games_hub' %}" class="btn btn-secondary">Back to Games</a>
+    </div>
 </div>
 
-</div>
 <script src="{% static 'games/space-invaders/space-invaders.js' %}"></script>
