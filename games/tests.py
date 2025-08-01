@@ -7,7 +7,7 @@ from users.models import User
 
 # Create your tests here.
 class GameModelTest(TestCase):
-    def test__game_creation(self):
+    def test_game_creation(self):
         game = Game.objects.create(
             name="Test Game",
             description="This is a test game.",
