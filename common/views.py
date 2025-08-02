@@ -6,7 +6,6 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import RedirectView, TemplateView
-from pytube import YouTube
 
 from chat.forms import ChatMessageForm
 from chat.models import ChatMessage
@@ -101,8 +100,15 @@ class HomeView(LoginRequiredMixin, TemplateView):
 
 def fetch_youtube_title(youtube_url):
     try:
-        yt = YouTube(youtube_url)
-        return yt.title
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        response = requests.get(youtube_url, headers=headers)
+        if response.status_code != 200:
+            return "Unknown Title"
+        soup = BeautifulSoup(response.text, 'html.parser')
+        title_tag = soup.find("title")
+        if title_tag:
+            title = title_tag.text.replace("- YouTube", "").strip()
+            return title
     except Exception as ex:
-        print(f"Error with pytube: {ex}")
-        return "Unknown Title"
+        print(f"Error fetching title: {ex}")
+    return "Unknown Title"
