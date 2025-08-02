@@ -30,6 +30,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
 
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS').split(',')
 
+YOUTUBE_API_KEY = config('YOUTUBE_API_KEY')
 
 # Application definition
 

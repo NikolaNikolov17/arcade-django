@@ -1,7 +1,7 @@
 from urllib.parse import urlparse, parse_qs
 
 from django import template
-import re
+
 
 register = template.Library()
 

@@ -1,17 +1,18 @@
-import requests
-from bs4 import BeautifulSoup
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Max
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import RedirectView, TemplateView
+from googleapiclient.discovery import build
 
+from ArcadeApp_Project import settings
 from chat.forms import ChatMessageForm
 from chat.models import ChatMessage
 from games.models import Game, GameScore
 from music.forms import SongForm
 from music.models import Song
+from music.templatetags.youtube_extras import youtube_id
 
 
 # Create your views here.
@@ -98,17 +99,21 @@ class HomeView(LoginRequiredMixin, TemplateView):
         return redirect('home')
 
 
+
 def fetch_youtube_title(youtube_url):
     try:
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        response = requests.get(youtube_url, headers=headers)
-        if response.status_code != 200:
-            return "Unknown Title"
-        soup = BeautifulSoup(response.text, 'html.parser')
-        title_tag = soup.find("title")
-        if title_tag:
-            title = title_tag.text.replace("- YouTube", "").strip()
-            return title
-    except Exception as ex:
-        print(f"Error fetching title: {ex}")
-    return "Unknown Title"
+        video_id = youtube_id(youtube_url)
+        if not video_id:
+            return "Invalid URL"
+
+        youtube = build('youtube', 'v3', developerKey=settings.YOUTUBE_API_KEY)
+        request = youtube.videos().list(part='snippet', id=video_id)
+        response = request.execute()
+
+        if response['items']:
+            return response['items'][0]['snippet']['title']
+        return "Unknown Title"
+
+    except Exception as e:
+        print("YouTube API error:", e)
+        return "Unknown Title"
