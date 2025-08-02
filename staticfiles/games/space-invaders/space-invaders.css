@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: midnightblue;
+    font-family: sans-serif;
+    color: white;
+}
+
+.back-link {
+    margin: 10px;
+    color: white;
+    text-decoration: underline;
+    font-size: 14px;
+    align-self: flex-start;
+}
+
+.score-label {
+    position: absolute;
+    z-index: 10;
+    color: white;
+    left: 10px;
+    top: 10px;
+    margin: 0;
+    font-size: 14px;
+    transform: translateY(100px);
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    transform: translateY(100px);
+  }
+
+#endScreen {
+    display: none;
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: black;
+    background: lightgray;
+    padding: 20px;
+    border-radius: 10px;
+}

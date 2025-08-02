@@ -14,10 +14,6 @@ ENV/
 .idea/
 .vscode/
 
-# Static & media (ако качваш динамично)
-staticfiles/
-media/
-
 # Allow tracking migration files (required for deployment)
 !*/migrations/
 !*/migrations/*.py
