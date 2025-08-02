@@ -18,9 +18,9 @@ ENV/
 staticfiles/
 media/
 
-# Django migrations
-**/migrations/
-!*/migrations/__init__.py
+# Allow tracking migration files (required for deployment)
+!*/migrations/
+!*/migrations/*.py
 
 # OS files
 .DS_Store
