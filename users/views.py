@@ -1,4 +1,4 @@
-from asgiref.sync import sync_to_async
+from asgiref.sync import sync_to_async, async_to_sync
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView
@@ -27,7 +27,20 @@ class RegisterView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         login(self.request, self.object)
+        async_to_sync(self.send_registration_email)()
+
         return response
+
+    async def send_registration_email(self):
+        user_email = self.object.email
+        if user_email:
+            await sync_to_async(send_mail)(
+                subject='Welcome to Arcade!',
+                message='Thank you for registering. Have fun playing!',
+                from_email=settings.COMPANY_EMAIL,
+                recipient_list=[user_email],
+                fail_silently=True,
+            )
 
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
@@ -65,10 +78,11 @@ class CustomPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
     success_url = reverse_lazy('profile')
     success_message = "The password has been changed successfully."
 
-    async def form_valid(self, form):
-        response = await sync_to_async(super().form_valid)(form)
+    def form_valid(self, form):
+        response = super().form_valid(form)
         update_session_auth_hash(self.request, form.user)
-        await self.send_email_notification()
+        async_to_sync(self.send_email_notification)()
+
         return response
 
     async def send_email_notification(self):
