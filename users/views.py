@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
+from ArcadeApp_Project import settings
 from users.forms import LoginForm, RegisterForm, CustomPasswordChangeForm
 from users.models import User
 
@@ -76,7 +77,7 @@ class CustomPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
             await sync_to_async(send_mail)(
                 subject='Your password has been changed.',
                 message='Hello! Your password has been changed successfully.',
-                from_email='admin@example.com',
+                from_email=settings.COMPANY_EMAIL,
                 recipient_list=[user_email],
                 fail_silently=True,
             )
